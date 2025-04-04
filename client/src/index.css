@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+*{
+  font-family: Outfit;
+} 
+
+
+.course-deatails-heading-small {
+  font-size: 26px; 
+}
+
+@media (min-width: 768px) { 
+  .course-deatails-heading-small {
+    font-size: 36px;
+  }
+}
+
+.course-deatails-heading-large {
+  font-size: 36px; 
+}
+
+@media (min-width: 768px) { 
+  .course-deatails-heading-large {
+    font-size: 44px;
+  }
+}
+
+
+.text-home-heading-large {
+  font-size: 48px; 
+}
+
+@media (min-width: 768px) { 
+  .text-home-heading-large {
+    font-size: 56px;
+  }
+}
+
+.text-home-heading-small {
+  font-size: 28px; 
+}
+
+@media (min-width: 768px) { 
+  .text-home-heading-small {
+    font-size: 45px;
+  }
+}
+
+.defualt {
+  font-size: 15px; 
+}
+
+@media (min-width: 768px) { 
+  .defualt {
+    font-size: 21px;
+  }
+}
+
+.gridTemplateColumns {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.h-section-height {
+  height: 500px;
+}
+
+@layer base{
+  html {
+    scroll-behavior: smooth;  /** Smooth scrolling */
+  }
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.shadow-card {
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 1px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.border-blue-500 {
+  border: 1px solid #07406e;
+  border-radius: 10px;
+}
+
+
