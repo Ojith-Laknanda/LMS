@@ -18,21 +18,22 @@ export const clerkUserWebhook = async (req, res) => { //this is the function tha
                 {
                     const userData = {
                         _id: data.id, //this is the id of the user
-                        name: data.firstName, //this is the name of the user
                         email: data.email_addresses[0].email_addresses, //this is the email of the user
+                        name: data.first_name+ " "+ data.last_name, //this is the name of the user
                         imageUrl: data.image_url, //this is the image of the user
                     }
                     await User.create(userData); //this will create a new user in the database
                     res.json({})
+                    break;
                 }
-                break;
+                
             case 'user.updated':{
                 const userData = {
                     name: data.firstName, //this is the name of the user
                     email: data.email_addresses[0].email_addresses, //this is the email of the user
                     imageUrl: data.image_url, //this is the image of the user
                 }
-                await User.findByIdAndUpdate(data.id,userData,); //this will update the user in the database
+                await User.findByIdAndUpdate(data.id , userData); //this will update the user in the database
                 res.json({})
                 break;
             }
