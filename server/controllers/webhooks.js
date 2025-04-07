@@ -6,11 +6,13 @@ import User from "../models/User.js";
 export const clerkUserWebhook = async (req, res) => { //this is the function that will handle the webhook from clerk that can access the user data from the database
     try {
         const wh= new Webhook(process.env.CLERK_WEBHOOK_SECRET); //this will create a new instance of the webhook class with the secret key from the env file
+        console.log('Verifying webhook...');
         await wh.verify(JSON.stringify(req.body),{
             "svix-id": req.headers["svix-id"], //this is the id of the webhook
             "svix-timestamp": req.headers["svix-timestamp"], //this is the timestamp of the webhook
             "svix-signature": req.headers["svix-signature"] //this is the signature of the webhook
-        })
+        }),
+        console.log('Webhook verified!');
         const {data,type} = req.body; //this will destructure the data and type from the request body
         //this will check if the type of the webhook is user.created or user.updated or user.deleted
         switch (type) {
@@ -18,23 +20,25 @@ export const clerkUserWebhook = async (req, res) => { //this is the function tha
                 {
                     const userData = {
                         _id: data.id, //this is the id of the user
-                        email: data.email_addresses[0].email_addresses, //this is the email of the user
-                        name: data.first_name+ " "+ data.last_name, //this is the name of the user
+                        email: data.email_addresses[0].email_address, //this is the email of the user
+                        name: data.first_name + " " + data.last_name, //this is the name of the user
                         imageUrl: data.image_url, //this is the image of the user
                     }
                     await User.create(userData); //this will create a new user in the database
-                    res.json({})
+                    res.status(200).json({ success: true })
+
                     break;
                 }
                 
             case 'user.updated':{
                 const userData = {
-                    name: data.firstName, //this is the name of the user
-                    email: data.email_addresses[0].email_addresses, //this is the email of the user
+                    name: data.first_name + " " + data.last_name, //this is the name of the user
+                    email: data.email_addresses[0].email_address, //this is the email of the user
                     imageUrl: data.image_url, //this is the image of the user
                 }
                 await User.findByIdAndUpdate(data.id , userData); //this will update the user in the database
-                res.json({})
+                res.status(200).json({ success: true })
+
                 break;
             }
 
